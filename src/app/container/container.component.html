@@ -1,0 +1,55 @@
+<div class="container" [formGroup]="form">
+    <h2>GERADOR DE TABELAS</h2>
+    <p>*Criando tabelas dinâmicas por meio de composição de componentes(Pai/Filhos). </p>
+    <button (click)="createGroupTabela()" mat-stroked-button color="warn">+ TABELA</button>
+    <div class="tabelas" formGroupName="tabelas">
+        @for (item of ctrlTabelas.controls; track $index) {
+            <div [formGroupName]="$index" class="tab">
+                <mat-form-field>
+                    <mat-label>URL</mat-label>
+                    <input formControlName="url" matInput>
+                    <button (click)="getApi(item, $index)" mat-button matSuffix >
+                        GET
+                    </button>
+                </mat-form-field>
+
+                @if(ctrlTabelas.controls[$index].value?.columns?.length){
+                    <div>
+                        <h3>TABELA N{{$index + 1}}</h3>
+                        <app-tabela (clear)="remove($index)" [columns]="ctrlTabelas.controls[$index].value?.columns" [data]="ctrlTabelas.controls[$index].value?.data"/>
+                    </div>
+                }
+
+ 
+
+            </div>
+            
+
+        }
+
+
+    </div>
+
+
+    <!-- <div class="btns">
+        <button (click)="getApi1()" mat-stroked-button color="primary" style="margin-right: 20px;">GET API 1</button>
+        <button (click)="getApi2()" mat-stroked-button color="warn">GET API 2</button>
+    </div>
+
+    <div class="tables">
+        <div>
+            <h3>TABELA N1</h3>
+            <app-tabela [tabela]="tabela1"/>
+        </div>
+        <div>
+            <h3>TABELA N2</h3>
+            <app-tabela [tabela]="tabela2"/>
+        </div>
+
+    </div> -->
+
+
+
+
+</div>
+
